@@ -1,21 +1,15 @@
 import { ThemeProvider } from "@material-ui/styles";
 import { Route, Switch } from "react-router-dom";
 import { LogIn, Register, Product } from "./pages";
-// import { Admin, Resource, ListGuesser } from 'react-admin';
-import { ListGuesser } from 'react-admin';
+import { Admin, Resource, ListGuesser } from 'react-admin';
+// import { ListGuesser } from 'react-admin'; // no admin
 import jsonServerProvider from 'ra-data-json-server';
 import CustomRoutes from "./CustomRoutes";
 import AllCustomLayout from "./AllCustomLayout";
 import { createTheme } from '@material-ui/core/styles'
 import { CssBaseline } from "@material-ui/core";
-+import PropTypes from "prop-types";
-+import { ConnectedRouter } from 'connected-react-router';
-+import { Switch, Route } from 'react-router-dom';
-+import withContext from 'recompose/withContext';
-+import { AuthContext, DataProviderContext, TranslationProvider, Resource, Notification } from 'react-admin';
-+import AppBar from '@material-ui/core/AppBar';
-+import Toolbar from '@material-ui/core/Toolbar';
-+import Typography from '@material-ui/core/Typography';
+// 색상
+import { purple } from '@material-ui/core/colors';
 
 
 /**
@@ -34,13 +28,19 @@ const theme = createTheme({
       dark: '#e39e0b', // 이승민 임의의 어두운 색 (버튼에 마우스 올릴 시)
       contrastText: "#FFF"
     },
+    primary: purple,
     secondary: {
       main: '#edce8c', //appbar default  생상
     },
     action: {
+      // 여기는 theme이라서, 모든 것이 다 바뀐다. 
       // active: '#FF0000', // 좌측 네비바 이모지 색상
-      hover: '#FF0000', // 좌측 네비바에 마우스 올렸을 때,
+      // hover: '#FF0000', // 좌측 네비바에 마우스 올렸을 때, 
     }
+  },
+  sidebar: {
+    width: 350, // The default value is 240 -> 적용이 안되고있따
+    closedWidth: 0 // The default value is 55
   },
 })
 
@@ -48,56 +48,26 @@ const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 function App() {
   return (
     <>
-+       <AuthContext.Provider value={authProvider}>
-+       <DataProviderContext.Provider value={dataProvider}></DataProviderContext.Provider>  
       <CssBaseline>
       <ThemeProvider theme={theme}>
 
         {/* Admin 사용 코드 */}
-        {/* <Admin
+        <Admin
           customRoutes={CustomRoutes}
-          // theme={theme}
+          theme={theme}
           // layout={layout}
           layout={AllCustomLayout}
           loginPage={LogIn}
           dataProvider={dataProvider}
           >
-          <Resource name="posts" list={ListGuesser} options={{label: "PlicAR : 쉽고 빠른 AR 커머스"}}/>
+
+          {/* 메뉴들의 CSS는 CustomMenu.js 에서 처리 */}
+          <Resource name="posts" list={ListGuesser} />
           <Resource name="users" list={ListGuesser} />
           <Resource name="library" list={ListGuesser} />
-        </Admin> */}
-+               <AppBar position="static" color="default">
-+                   <Toolbar>
-+                       <Typography variant="h6" color="inherit">
-+                           My admin
-+                       </Typography>
-+                   </Toolbar>
-+               </AppBar>
-+               <ConnectedRouter history={history}>
-+                   <Switch>
-+                       <Route exact path="/" component={Dashboard} />
-+                       <Route exact path="/posts" render={(routeProps) => <PostList hasCreate resource="posts" basePath={routeProps.match.url} {...routeProps} />} />
-+                       <Route exact path="/posts/create" render={(routeProps) => <PostCreate resource="posts" basePath={routeProps.match.url} {...routeProps} />} />
-+                       <Route exact path="/posts/:id" render={(routeProps) => <PostEdit hasShow resource="posts" basePath={routeProps.match.url} id={decodeURIComponent((routeProps.match).params.id)} {...routeProps} />} />
-+                       <Route exact path="/posts/:id/show" render={(routeProps) => <PostShow hasEdit resource="posts" basePath={routeProps.match.url} id={decodeURIComponent((routeProps.match).params.id)} {...routeProps} />} />
-+                       <Route exact path="/comments" render={(routeProps) => <CommentList hasCreate resource="comments" basePath={routeProps.match.url} {...routeProps} />} />
-+                       <Route exact path="/comments/create" render={(routeProps) => <CommentCreate resource="comments" basePath={routeProps.match.url} {...routeProps} />} />
-+                       <Route exact path="/comments/:id" render={(routeProps) => <CommentEdit resource="comments" basePath={routeProps.match.url} id={decodeURIComponent((routeProps.match).params.id)} {...routeProps} />} />
-+                       <Route exact path="/users" render={(routeProps) => <UsersList hasCreate resource="users" basePath={routeProps.match.url} {...routeProps} />} />
-+                       <Route exact path="/users/create" render={(routeProps) => <UsersCreate resource="users" basePath={routeProps.match.url} {...routeProps} />} />
-+                       <Route exact path="/users/:id" render={(routeProps) => <UsersEdit resource="users" basePath={routeProps.match.url} id={decodeURIComponent((routeProps.match).params.id)} {...routeProps} />} />
-+                   </Switch>
-+               </ConnectedRouter>
-+               <Notification />
-
-
+        </Admin>
       </ThemeProvider>
       </CssBaseline>
-
-+       </DataProviderContext.Provider>
-+       </AuthContext.Provider>
-
-
     </>
   );
 };
@@ -106,11 +76,4 @@ function App() {
 // dev https://plm-dev.aseeo.io:3003/plm#
 // production https://plm.aseeo.io:3003/plm
 
-// export default App;
-
-+export default withContext(
-  +   {
-  +       authProvider: PropTypes.object,
-  +   },
-  +   () => ({ authProvider })
-  +)(App);
+export default App;

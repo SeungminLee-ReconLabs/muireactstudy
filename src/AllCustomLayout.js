@@ -5,16 +5,19 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  AppBar,
+  // AppBar,
   Menu,
   Notification,
   Sidebar,
   setSidebarVisibility,
   ComponentPropType,
 } from "react-admin";
+// import AppBar from "./CustomReactAdmin/AppBar"
 import CustomMenu from "./CustomMenu";
 import { sideBarWidth } from "./cssVariables";
 import { CssBaseline } from "@material-ui/core";
+import CustomAppBar from "./CustomAppBar";
+import CustomSideBar from "./CustomSideBar";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,7 +35,7 @@ const useStyles = makeStyles(() => ({
     // marginTop:'150px',
     // paddingTop: "150px",
     // border: "2px solid red",
-    boxSizing: "border-box",
+
   },
   contentWithSidebar: {
     display: "flex",
@@ -46,17 +49,15 @@ const useStyles = makeStyles(() => ({
     marginTop: "130px",
     marginBottom: "1000px",
     paddingLeft: 5,
+    overflow: 'auto',
   },
-  appBar: {
-    height: "140px",
-    position: "fixed",
-    width: `calc(100% - ${sideBarWidth}px)`,
-    backgroundColor: '#fafafa',
-    boxShadow: '0px 0px '
-  },
+  // appBar의 CSS설정은 CustomAppBar.js 함.
+  // appBar: { 
+  // },
   sideBar: {
     width: `${sideBarWidth}px`,
     backgroundColor: 'white',
+    margin: 0,
   },
 }));
 
@@ -67,19 +68,24 @@ const AllCustomLayout = ({ children, dashboard, logout, title }) => {
     <CssBaseline>
     <div className={classes.root}>
       <div className={classes.appFrame}>
-        <AppBar
+        <CustomAppBar
           title={title}
+          open={false}
           //   open={open}
           logout={logout}
           className={classes.appBar}
           />
         <main className={classes.contentWithSidebar}>
-          <Sidebar
+          {/* SideBar */}
+          <CustomSideBar
             className={classes.sideBar}  
             >
             {/* <Menu logout={logout} hasDashboard={!!dashboard} /> */}
+            {/* SideBar내부 메뉴Navigator */}
             <CustomMenu />
-          </Sidebar>
+          </CustomSideBar>
+
+          {/* UI상 메인컨텐츠 담기는 부분 */}
           <div className={classes.content}>{children}</div>
         </main>
         <Notification />
