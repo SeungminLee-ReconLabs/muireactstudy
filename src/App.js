@@ -9,8 +9,7 @@ import AllCustomLayout from "./AllCustomLayout";
 import { createTheme } from '@material-ui/core/styles'
 import { CssBaseline } from "@material-ui/core";
 // 색상
-import { purple } from '@material-ui/core/colors';
-
+import { reconlabsPrimaryYellow, reconlabsMellowYellow } from './cssVariables'
 
 /**
  * 최상단에 위치한 App.js에서 MUI(material ui)의 커스텀테마를 생성합니다
@@ -20,27 +19,23 @@ import { purple } from '@material-ui/core/colors';
 
 
 const theme = createTheme({
-  appFrame: {
-    marginTop: '0px',
-  },
   palette: {
     primary: {
-      main: '#F7AD11',
+      main: reconlabsPrimaryYellow,
       light: '#f5c662', // 이승민 임의의 밝은 색)
       dark: '#e39e0b', // 이승민 임의의 어두운 색 (버튼에 마우스 올릴 시)
     },
     secondary: {
       // main: '#edce8c', //appbar default  생상
-      main: '#ffffff', //appbar default  생상
+      main: '#ff0000', //appbar default  생상
     },
-    text: purple,
     action: {
       // 여기는 theme이라서, 모든 것이 다 바뀐다. 
       // active: '#FF00ff', // 좌측 네비바 이모지 색상
-      hover: "#FEF8EC", // 마우스 올렸을 때
+      hover: reconlabsMellowYellow, // 마우스 올렸을 때
       selected: '#FEF8EC', // 선택이 되었을 떄,
       hoverOpacity: 0.54,
-      focus: "#FFFF00"
+      focus: "red"
     }
   },
   sidebar: {

@@ -10,11 +10,13 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
     backgroundColor: reconlabsWhite,
-    height: '100vh',
   },
   drawerPaper: {
     /* 메인 콘텐츠와의 위치를 잡아주기 위한 DIV */
-    width: '300px'
+    width: '300px',
+    [theme.breakpoints.down('sm')]: {
+      width: '230px'
+    }
   },
 }));
 

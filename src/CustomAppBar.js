@@ -5,11 +5,8 @@ import { AppBar } from "@material-ui/core";
 import { Toolbar, makeStyles, Typography, Avatar } from "@material-ui/core";
 import { CssBaseline, useMediaQuery  } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import { sideBarWidth } from "./cssVariables";
-import { reconlabsMellowWhite} from "./cssVariables"
-import PlicARLogo2 from "./svg/PlicARLogo2";
-import PlicARLogo2svg from "./svg/PlicARLogo2.svg";
-import {reconlabsWhite} from "./cssVariables"
+import { reconlabsMellowWhite, reconlabsWhite, sideBarWidth, sideBarSmallWidth} from "./cssVariables"
+import PlicARLogo2 from "./svg/PlicARLogo2.svg";
 
 const flexRow = {
   display: 'flex',
@@ -25,10 +22,12 @@ const useStyles =  makeStyles(theme=>({
     boxSizing: "border-box",
     backgroundColor: reconlabsMellowWhite,
     width: `calc(100% - ${sideBarWidth}px)`,
-    marginLeft: sideBarWidth,
+    // marginLeft: sideBarWidth,
+    [theme.breakpoints.down('sm')]: {
+      width: `calc(100% - ${sideBarSmallWidth}px)`,
+    },
     [theme.breakpoints.down('xs')]: {
-      // marginLeft: '0px',
-      width: '100%'
+      width: '100%',
     },
   },
   toolBar:{
@@ -37,18 +36,10 @@ const useStyles =  makeStyles(theme=>({
     color: "black",
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      // height: "221px",
-      // marginBottom: '30px',
-      // backgroundColor: reconlabsWhite,
-      justifyContent: 'space-evenly',
-    },
+    justifyContent: 'flex-start',
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column',
       height: "221px",
-      // marginBottom: '30px',
       backgroundColor: reconlabsWhite,
       justifyContent: 'flex-start',
     },
@@ -63,13 +54,14 @@ const useStyles =  makeStyles(theme=>({
     display: 'none',
     [theme.breakpoints.down('xs')]: {
       ...flexRow,
+      gap: '10px',
+      position: 'relative',
+      left: '-15px',
     },
   },
   Avatar: {
-    // [theme.breakpoints.down('xs')]: {
-      position: 'absolute', 
-      transform: "translate(-45px, 0px)"
-    // },
+    position: 'absolute', 
+    transform: "translate(-45px, 0px)"
   }
 }))
 
@@ -91,7 +83,7 @@ const CustomAppBar = (props) => {
     flexDirection: 'column',
   }
 
-  const PlicARLogo = (isXSScreen ? <img style={{marginTop: '38px', marginBottom: '40px'}} src={PlicARLogo2svg}></img> : <></>)
+  const PlicARLogo = (isXSScreen ? <img style={{marginTop: '38px', marginBottom: '40px'}} src={PlicARLogo2}></img> : <></>)
 
   return (
     <>

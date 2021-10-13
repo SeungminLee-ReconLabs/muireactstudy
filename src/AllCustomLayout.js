@@ -19,7 +19,7 @@ import { CssBaseline } from "@material-ui/core";
 import CustomAppBar from "./CustomAppBar";
 import CustomSideBar from "./CustomSideBar";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -28,20 +28,17 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     boxSizing: "border-box",
   },
-  appFrame: {
-    display: "flex",
-    flexDirection: "column",
-    overflowX: "auto",
-    // marginTop:'150px',
-    // paddingTop: "150px",
-    // border: "2px solid red",
-
-  },
+  // appFrame: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   overflowX: "auto",
+  // },
   contentWithSidebar: {
     display: "flex",
     flexGrow: 1,
-    // border: "2px solid green",
+    height: '100vh',
   },
+  // 메인페이지(컨텐츠)
   content: {
     display: "flex",
     flexDirection: "column",
@@ -49,17 +46,16 @@ const useStyles = makeStyles(() => ({
     marginTop: "130px",
     marginBottom: "1000px",
     paddingLeft: 5,
-    overflow: 'auto',
+    overflow: 'visible',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: "250px"
+    }
   },
-  // appBar의 CSS설정은 CustomAppBar.js 함.
-  // appBar: { 
-  // },
 }));
 
 const AllCustomLayout = ({ children, dashboard, logout, title }) => {
   const classes = useStyles();
   return (
-
     <CssBaseline>
     <div className={classes.root}>
       <div className={classes.appFrame}>

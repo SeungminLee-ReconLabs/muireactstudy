@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { Button, DashboardMenuItem, Menu, MenuItemLink } from 'react-admin';
 import PageviewIcon from '@material-ui/icons/Pageview';
-import PlicARLogo2 from './svg/PlicARLogo2';
+import PlicARLogo2 from './svg/PlicARLogo2.svg';
 import { makeStyles } from "@material-ui/core/styles";
 import {withRouter} from "react-router-dom"
 import UploadIcon from '@mui/icons-material/Upload';
@@ -27,17 +27,19 @@ import {
 const useMenuStyles = makeStyles((theme) => ({
   menu: {
     margin: "0px",
-    // * works
-    // '&:hover': {
-    //   backgroundColor: 'black',
-    // },
   },
-  // * works and required
+  /* sidebar 및 메뉴의 width */
   closed: {
-    width: '300px'
+    width: '300px',
+    [theme.breakpoints.down('sm')]: {
+      width: '230px',
+    },
   },
   open: {
-    width: '300px'
+    width: '300px',
+    [theme.breakpoints.down('sm')]: {
+      width: '230px',
+    },
   },
   MenuItemLink: {
     /* Typography/Body 1 */
@@ -51,6 +53,7 @@ const useMenuStyles = makeStyles((theme) => ({
     height: '52px',
     [theme.breakpoints.down('sm')]: {
       height: '40px',
+      width: '200px',
     },
   },
 }));
@@ -80,15 +83,17 @@ const CustomMenu = (props) => {
       classes={classes}
     >
       {/* <DashboardMenuItem /> */}
-      {PlicARLogo2}
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center',height: '175px'}} >
+        <img style={{width: '158px', height:'67px',}} src={PlicARLogo2}></img>
+      </div>
       <div style={{display:'flex', alignItems:'center', flexDirection: 'column' }}>
         <Button onClick={goUploadPage} style={{color: reconlabsWhite, marginBottom:'32px'}} className={classes.MenuItemLink} variant="contained" color="primary" label="새 영상 업로드" children={<UploadIcon/>}></Button>
         <MenuItem onClick={hello} className={classes.MenuItemLink}> <AllInboxIcon style={{color: "rgba(0, 0, 0, 0.54)"}} /> 내 모델 <ExpandLessIcon style={{color: "rgba(0, 0, 0, 0.54)", position:'relative', right:'-140px'}}/></MenuItem>
         <div>
-          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="전체 모델" />
-          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="진행 중" />
-          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="발행 완료" />
-          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="모델 취소" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/products" primaryText="전체 모델" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["progress"]' primaryText="진행 중" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["published"]' primaryText="발행 완료" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["canceled"]' primaryText="모델 취소" />
         </div>
         <MenuItemLink className={classes.MenuItemLink} to="/posts" primaryText="영상 촬영 팁" leftIcon={<VideoCameraFrontIcon />}/>
         <MenuItemLink className={classes.MenuItemLink} to="/modeling" primaryText="구독 플랜" leftIcon={<MonetizationOnIcon />}/>
