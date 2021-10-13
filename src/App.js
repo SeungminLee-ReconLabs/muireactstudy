@@ -15,7 +15,9 @@ import { purple } from '@material-ui/core/colors';
 /**
  * 최상단에 위치한 App.js에서 MUI(material ui)의 커스텀테마를 생성합니다
  * 리콘랩스만의 색깔(노랑)을 입힌 버튼, 인풋박스 등을 만들기 위함입니다
+ * ripple은 아직 어떻게 하는지 모르겠습니다.
  */
+
 
 const theme = createTheme({
   appFrame: {
@@ -24,18 +26,21 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#F7AD11',
-      light: '#f5c662', // 이승민 임의의 밝은 색 (버튼 클릭시 퍼져나가는 물방울)
+      light: '#f5c662', // 이승민 임의의 밝은 색)
       dark: '#e39e0b', // 이승민 임의의 어두운 색 (버튼에 마우스 올릴 시)
-      contrastText: "#FFF"
     },
-    primary: purple,
     secondary: {
-      main: '#edce8c', //appbar default  생상
+      // main: '#edce8c', //appbar default  생상
+      main: '#ffffff', //appbar default  생상
     },
+    text: purple,
     action: {
       // 여기는 theme이라서, 모든 것이 다 바뀐다. 
-      // active: '#FF0000', // 좌측 네비바 이모지 색상
-      // hover: '#FF0000', // 좌측 네비바에 마우스 올렸을 때, 
+      // active: '#FF00ff', // 좌측 네비바 이모지 색상
+      hover: "#FEF8EC", // 마우스 올렸을 때
+      selected: '#FEF8EC', // 선택이 되었을 떄,
+      hoverOpacity: 0.54,
+      focus: "#FFFF00"
     }
   },
   sidebar: {

@@ -1,12 +1,30 @@
 // in src/CustomMenu.js
 import * as React from 'react';
-import { DashboardMenuItem, Menu, MenuItemLink } from 'react-admin';
+import { Button, DashboardMenuItem, Menu, MenuItemLink } from 'react-admin';
 import PageviewIcon from '@material-ui/icons/Pageview';
 import PlicARLogo2 from './svg/PlicARLogo2';
 import { makeStyles } from "@material-ui/core/styles";
 import {withRouter} from "react-router-dom"
+import UploadIcon from '@mui/icons-material/Upload';
+import AllInboxIcon from '@mui/icons-material/AllInbox';
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import InfoIcon from '@mui/icons-material/Info';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { Typography, Avatar, Container } from "@material-ui/core";
+import { reconlabsWhite} from './cssVariables'
 
-const useMenuStyles = makeStyles(() => ({
+import {
+  MenuItem,
+  MenuItemProps,
+  ListItemIcon,
+  Tooltip,
+  TooltipProps,
+  useMediaQuery,
+  Theme,
+} from '@material-ui/core';
+
+const useMenuStyles = makeStyles((theme) => ({
   menu: {
     margin: "0px",
     // * works
@@ -22,9 +40,24 @@ const useMenuStyles = makeStyles(() => ({
     width: '300px'
   },
   MenuItemLink: {
-    backgroundColor: 'green',
-  }
+    /* Typography/Body 1 */
+    fontFamily: "Noto Sans",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: "16px",
+    lineHeight: "150%",
+    color: "rgba(0, 0, 0, 0.87)",
+    width: '268px',
+    height: '52px',
+    [theme.breakpoints.down('sm')]: {
+      height: '40px',
+    },
+  },
 }));
+
+
+
+
 
 /**
  * TODO: hierarchical Menu Design
@@ -37,10 +70,10 @@ const useMenuStyles = makeStyles(() => ({
 const CustomMenu = (props) => {
   const classes = useMenuStyles();
   const {history} = props
-  console.log('💛💛💛💛💛', props)
-  const hello = () => {
-    history.push("/library")
+  const goUploadPage = () => {
+    history.push("/upload")
   }
+  const hello=()=>{alert("hello")}
   return (
     <Menu {...props}
       className={classes.menu}
@@ -48,15 +81,28 @@ const CustomMenu = (props) => {
     >
       {/* <DashboardMenuItem /> */}
       {PlicARLogo2}
-      <button onClick={hello} >helehelhkelkfhlk</button>
-      <MenuItemLink to="/users" primaryText="Product management" leftIcon={<PageviewIcon />}/>
-      <MenuItemLink style={{marginLeft: '100px'}} to="/library" primaryText="All Products" leftIcon={<PageviewIcon />}/>
-      <MenuItemLink to="/posts" primaryText="Videos(보이길원하는이름)" leftIcon={<PageviewIcon />}/>
-      <MenuItemLink to="/modeling" primaryText="Modeling" leftIcon={<PageviewIcon />}/>
-      <MenuItemLink to="/postprocessing" primaryText="Post processing" leftIcon={<svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18 4L14 8H17C17 11.31 14.31 14 11 14C9.99 14 9.03 13.75 8.2 13.3L6.74 14.76C7.97 15.54 9.43 16 11 16C15.42 16 19 12.42 19 8H22L18 4ZM5 8C5 4.69 7.69 2 11 2C12.01 2 12.97 2.25 13.8 2.7L15.26 1.24C14.03 0.46 12.57 0 11 0C6.58 0 3 3.58 3 8H0L4 12L8 8H5Z" fill="black" fill-opacity="0.87"/></svg>}/>
-      <MenuItemLink to="/underreview" primaryText="Under review" leftIcon={<PageviewIcon />}/>
-      <MenuItemLink to="/delivered" primaryText="Delivered" leftIcon={<PageviewIcon />}/>
-      <MenuItemLink to="/published" primaryText="Published" leftIcon={<PageviewIcon />}/>
+      <div style={{display:'flex', alignItems:'center', flexDirection: 'column' }}>
+        <Button onClick={goUploadPage} style={{color: reconlabsWhite, marginBottom:'32px'}} className={classes.MenuItemLink} variant="contained" color="primary" label="새 영상 업로드" children={<UploadIcon/>}></Button>
+        <MenuItem onClick={hello} className={classes.MenuItemLink}> <AllInboxIcon style={{color: "rgba(0, 0, 0, 0.54)"}} /> 내 모델 <ExpandLessIcon style={{color: "rgba(0, 0, 0, 0.54)", position:'relative', right:'-140px'}}/></MenuItem>
+        <div>
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="전체 모델" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="진행 중" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="발행 완료" />
+          <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/users" primaryText="모델 취소" />
+        </div>
+        <MenuItemLink className={classes.MenuItemLink} to="/posts" primaryText="영상 촬영 팁" leftIcon={<VideoCameraFrontIcon />}/>
+        <MenuItemLink className={classes.MenuItemLink} to="/modeling" primaryText="구독 플랜" leftIcon={<MonetizationOnIcon />}/>
+        <MenuItemLink className={classes.MenuItemLink} to="/postprocessing" primaryText="문의하기" leftIcon={<InfoIcon />}/>
+      </div>
+      <Container>
+        <div style={{position: 'absolute', bottom: '1px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: '10px'}}>
+          <Avatar></Avatar>
+          <div>
+            <Typography display='block' variant="body2">Name</Typography>
+            <Typography display='block' variant="body2">contact@recocnlabs.kr</Typography>
+          </div>
+        </div>
+      </Container>
     </Menu>
   )
 }

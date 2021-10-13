@@ -1,18 +1,6 @@
 import { Sidebar, Layout } from "react-admin";
 import { makeStyles } from "@material-ui/core/styles";
-
-// const useStyles = makeStyles({
-//   drawer: {
-//     // position: 'relative',
-//     top: '0px',
-//     backgroundColor: 'black',
-//     width: '300px',
-//   },
-//   drawerPaper: {
-//     backgroundColor: "grey",
-//     width: '300px'
-//   },
-// });
+import { reconlabsWhite } from "./cssVariables"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,16 +8,12 @@ const useStyles = makeStyles(theme => ({
     // * works
     [theme.breakpoints.down('xs')]: {
       display: 'none',
-    }
-  },
-  drawer: {
-    // position: 'relative',
-    top: '0px',
-    backgroundColor: 'black',
-    width: '300px',
+    },
+    backgroundColor: reconlabsWhite,
+    height: '100vh',
   },
   drawerPaper: {
-    backgroundColor: "blue",
+    /* 메인 콘텐츠와의 위치를 잡아주기 위한 DIV */
     width: '300px'
   },
 }));
@@ -38,16 +22,10 @@ const CustomSideBar = (props) => {
   const classes = useStyles();
   return <div className={classes.root}>
     <Sidebar
-      // anchor='right'
+      className={classes.root}
       open={true}
       variant="permanent" 
-      classes = {{
-        // paperAnchorLeft: classes.drawerPaper
-        paper: classes.drawerPaper
-      }}
-      className={classes.drawer} 
-      // classes={classes} 
-      closedSize={0}
+      classes={classes}
       {...props} 
     />
   </div>
@@ -58,26 +36,5 @@ const CustomSideBar = (props) => {
  * 화면크기 작아지면, 지멋대로 레이아웃 바뀌는데, 그거에 맞춰서 drawer 버튼 좌측 위에 생기도록.
  * 비로소 못된 애니메이션 들어가도 ㄱㅊ
  */
-{/* <Drawer
-  className={classes.drawer}
-  variant="permanent"
-  classes={{
-    paper: classes.drawerPaper,
-  }}
-  anchor="left"
->
-  <div></div>
-  <Divider />
-  <List>
-    {[1,2,3].map((text, index)=>(
-      <ListItem button key={text} >
-        <ListItemIcon></ListItemIcon> 
-        <ListITemText primary={text} />
-      </ListItem>
-    ))}
-  </List>
-
-</Drawer> */}
-
 
 export default CustomSideBar;

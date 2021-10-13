@@ -3,15 +3,33 @@ import * as React from "react";
 // import { AppBar } from "react-admin";
 import { AppBar } from "@material-ui/core";
 import { Toolbar, makeStyles, Typography, Avatar } from "@material-ui/core";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, useMediaQuery  } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import { sideBarWidth } from "./cssVariables";
+import { reconlabsMellowWhite} from "./cssVariables"
+import PlicARLogo2 from "./svg/PlicARLogo2";
+import PlicARLogo2svg from "./svg/PlicARLogo2.svg";
+import {reconlabsWhite} from "./cssVariables"
 
-const useStyles =  makeStyles({
+const flexRow = {
+  display: 'flex',
+  flexDirection: 'row',
+}
+const flexColumn = {
+  display: 'flex',
+  flexDirection: 'column',
+}
+
+const useStyles =  makeStyles(theme=>({
   appBar: {
     boxSizing: "border-box",
-    // backgroundColor: "#fafafa",
+    backgroundColor: reconlabsMellowWhite,
     width: `calc(100% - ${sideBarWidth}px)`,
     marginLeft: sideBarWidth,
+    [theme.breakpoints.down('xs')]: {
+      // marginLeft: '0px',
+      width: '100%'
+    },
   },
   toolBar:{
     height: "138px",
@@ -19,14 +37,62 @@ const useStyles =  makeStyles({
     color: "black",
     display: 'flex',
     flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'space-between',
-    // marginTop: '30px',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      // height: "221px",
+      // marginBottom: '30px',
+      // backgroundColor: reconlabsWhite,
+      justifyContent: 'space-evenly',
+    },
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      height: "221px",
+      // marginBottom: '30px',
+      backgroundColor: reconlabsWhite,
+      justifyContent: 'flex-start',
+    },
+  },
+  titleContainer: {
+    ...flexColumn,
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    }
+  },
+  profileContainer: {
+    display: 'none',
+    [theme.breakpoints.down('xs')]: {
+      ...flexRow,
+    },
+  },
+  Avatar: {
+    // [theme.breakpoints.down('xs')]: {
+      position: 'absolute', 
+      transform: "translate(-45px, 0px)"
+    // },
   }
-})
+}))
 
 const CustomAppBar = (props) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isSMScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXSScreen = useMediaQuery(theme.breakpoints.down('xs'))
+  const titleProps = {
+    variant: isSMScreen ? (isXSScreen ? "h6" : "h5" ): "h4",
+  }
+
+  const flexRow = {
+    display: 'flex',
+    flexDirection: 'row',
+  }
+  const flexColumn = {
+    display: 'flex',
+    flexDirection: 'column',
+  }
+
+  const PlicARLogo = (isXSScreen ? <img style={{marginTop: '38px', marginBottom: '40px'}} src={PlicARLogo2svg}></img> : <></>)
+
   return (
     <>
       <CssBaseline/>
@@ -39,23 +105,22 @@ const CustomAppBar = (props) => {
           {...props}
           className={classes.toolBar}
         >
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
-            <Typography variant="h4">PlicAR : 쉽고 빠른 AR 커머스</Typography>
+          <div className={classes.titleContainer}>
+            <Typography 
+              {...titleProps}
+            >
+              PlicAR : 쉽고 빠른 AR 커머스
+            </Typography>
             <Typography variant="body1">All models</Typography>
           </div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}>
-            <Avatar></Avatar>
-            <div>
-              <Typography display='block' variant="body2">Name</Typography>
-              <Typography display='block' variant="body2">contact@recocnlabs.kr</Typography>
+            {PlicARLogo}
+            <div className={classes.profileContainer}>
+              <Avatar></Avatar>
+              <div>
+                <Typography display='block' variant="body2">Name</Typography>
+                <Typography display='block' variant="body2">contact@recocnlabs.kr</Typography>
+              </div>
             </div>
-          </div>
         </Toolbar>
         
       </AppBar>

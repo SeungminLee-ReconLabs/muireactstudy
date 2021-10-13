@@ -54,11 +54,6 @@ const useStyles = makeStyles(() => ({
   // appBar의 CSS설정은 CustomAppBar.js 함.
   // appBar: { 
   // },
-  sideBar: {
-    width: `${sideBarWidth}px`,
-    backgroundColor: 'white',
-    margin: 0,
-  },
 }));
 
 const AllCustomLayout = ({ children, dashboard, logout, title }) => {
@@ -77,9 +72,7 @@ const AllCustomLayout = ({ children, dashboard, logout, title }) => {
           />
         <main className={classes.contentWithSidebar}>
           {/* SideBar */}
-          <CustomSideBar
-            className={classes.sideBar}  
-            >
+          <CustomSideBar>
             {/* <Menu logout={logout} hasDashboard={!!dashboard} /> */}
             {/* SideBar내부 메뉴Navigator */}
             <CustomMenu />
