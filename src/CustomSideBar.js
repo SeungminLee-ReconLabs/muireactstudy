@@ -5,12 +5,13 @@ import { reconlabsWhite } from "./cssVariables"
 const useStyles = makeStyles(theme => ({
   root: {
     // 특정 사이즈 이하로 작아지면, sidebar를 지웁니다.
-    // * works
+    zIndex: '2',
+    backgroundColor:'peru',
     [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
-    backgroundColor: reconlabsWhite,
-  },
+    // backgroundColor: 'red', // CSS 확인용
+  }, 
   drawerPaper: {
     /* 메인 콘텐츠와의 위치를 잡아주기 위한 DIV */
     width: '300px',
@@ -18,6 +19,10 @@ const useStyles = makeStyles(theme => ({
       width: '230px'
     }
   },
+  fixed: {
+    height: '100vh',
+    backgroundColor: reconlabsWhite, // CSS 확인용
+  }
 }));
 
 const CustomSideBar = (props) => {

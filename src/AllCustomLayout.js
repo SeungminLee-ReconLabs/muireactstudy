@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    zIndex: 1,
     minHeight: "100vh",
     position: "relative",
     boxSizing: "border-box",
@@ -37,14 +36,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexGrow: 1,
     height: '100vh',
+    // backgroundColor: 'blue',
   },
   // 메인페이지(컨텐츠)
   content: {
     display: "flex",
     flexDirection: "column",
     flexGrow: 2,
-    marginTop: "130px",
-    marginBottom: "1000px",
+    marginTop: "150px",
+    // marginBottom: "1000px",
     paddingLeft: 5,
     overflow: 'visible',
     [theme.breakpoints.down('xs')]: {

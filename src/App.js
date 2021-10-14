@@ -6,10 +6,10 @@ import { Admin, Resource, ListGuesser } from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
 import CustomRoutes from "./CustomRoutes";
 import AllCustomLayout from "./AllCustomLayout";
-import { createTheme } from '@material-ui/core/styles'
+import { createTheme, createMuiTheme } from '@material-ui/core/styles'
 import { CssBaseline } from "@material-ui/core";
 // 색상
-import { reconlabsPrimaryYellow, reconlabsMellowYellow } from './cssVariables'
+import { reconlabsPrimaryYellow, reconlabsMellowYellow, reconlabsWhite } from './cssVariables'
 
 /**
  * 최상단에 위치한 App.js에서 MUI(material ui)의 커스텀테마를 생성합니다
@@ -19,6 +19,20 @@ import { reconlabsPrimaryYellow, reconlabsMellowYellow } from './cssVariables'
 
 
 const theme = createTheme({
+  overrides: {
+    MuiButton: {
+      root: {
+        width: '92px',
+        height: '43px',
+      },
+      containedPrimary : {
+        color: reconlabsWhite,
+      },
+      containedSecondary : {
+        color: reconlabsPrimaryYellow,
+      },
+    },
+  },
   palette: {
     primary: {
       main: reconlabsPrimaryYellow,
@@ -27,7 +41,11 @@ const theme = createTheme({
     },
     secondary: {
       // main: '#edce8c', //appbar default  생상
-      main: '#ff0000', //appbar default  생상
+      main: '#FFFF00', //appbar default  생상
+    },
+    error: {
+      main: '#FF0000', //appbar default  생상
+      // main: '#edce8c', //appbar default  생상
     },
     action: {
       // 여기는 theme이라서, 모든 것이 다 바뀐다. 
@@ -35,12 +53,11 @@ const theme = createTheme({
       hover: reconlabsMellowYellow, // 마우스 올렸을 때
       selected: '#FEF8EC', // 선택이 되었을 떄,
       // hoverOpacity: 0.1, // 버튼에 마우스 올렸을  때, 불투명하게 진해지는 정도
-      focus: "red"
     }
   },
   sidebar: {
     width: 350, // The default value is 240 -> 적용이 안되고있따
-    closedWidth: 0 // The default value is 55
+    closedWidth: 0, // The default value is 55
   },
 })
 

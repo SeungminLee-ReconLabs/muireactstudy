@@ -29,6 +29,7 @@ import {
 const useMenuStyles = makeStyles((theme) => ({
   menu: {
     margin: "0px",
+    // backgroundColor: 'purple' // CSS 확인용
   },
   /* sidebar 및 메뉴의 width */
   closed: {
@@ -87,7 +88,7 @@ const CustomMenu = (props) => {
   const goUploadPage = () => {
     history.push("/upload")
   }
-  const hello=()=>{
+  const expandProductsMenu=()=>{
     setExpanded(!expanded)
   }
 
@@ -103,7 +104,7 @@ const CustomMenu = (props) => {
       </div>
       <div style={{display:'flex', alignItems:'center', flexDirection: 'column' }}>
         <Button onClick={goUploadPage} style={{color: reconlabsWhite, marginBottom:'32px'}} className={classes.MenuItemLink} variant="contained" color="primary" label="새 영상 업로드" children={<UploadIcon/>}></Button>
-        <MenuItem onClick={hello} className={classes.MenuItemLink}>
+        <MenuItem onClick={expandProductsMenu} className={classes.MenuItemLink}>
           <AllInboxIcon className={classes.icon} style={{color: "rgba(0, 0, 0, 0.54)"}} /> 
           내 모델 
           <IconButton className={clsx(classes.expandClose, {[classes.expandOpen] : expanded})} >
@@ -123,7 +124,7 @@ const CustomMenu = (props) => {
         <MenuItemLink className={classes.MenuItemLink} to="/postprocessing" primaryText="문의하기" leftIcon={<InfoIcon />}/>
       </div>
       <Container>
-        <div style={{position: 'absolute', bottom: '1px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: '10px'}}>
+        <div style={{position: 'absolute', bottom: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: '10px'}}>
           <Avatar></Avatar>
           <div>
             <Typography display='block' variant="body2">Name</Typography>

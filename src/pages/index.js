@@ -1,8 +1,9 @@
 import LogIn from "./Login";
 import Register from "./Register";
 import Products from "./Products";
+import ProductDetail from "./ProductDetail"
 
-export { LogIn, Register, Products };
+export { LogIn, Register, Products, ProductDetail };
 
 /**
  * 사실 이 작업은 App.js 에서 해도 무방한데, 그냥 조금 더 페이지를 명시적으로 깔끔하게 보여주기 위해 여기서 미리 해준겁니다.
