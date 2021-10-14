@@ -1,5 +1,5 @@
 // in src/CustomMenu.js
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Button, DashboardMenuItem, Menu, MenuItemLink } from 'react-admin';
 import PageviewIcon from '@material-ui/icons/Pageview';
 import PlicARLogo2 from './svg/PlicARLogo2.svg';
@@ -10,9 +10,11 @@ import AllInboxIcon from '@mui/icons-material/AllInbox';
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import InfoIcon from '@mui/icons-material/Info';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { Typography, Avatar, Container } from "@material-ui/core";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Typography, Avatar, Container, Collapse, IconButton  } from "@material-ui/core";
 import { reconlabsWhite} from './cssVariables'
+/* className 조작 https://www.npmjs.com/package/clsx */
+import clsx from 'clsx'; 
 
 import {
   MenuItem,
@@ -41,6 +43,21 @@ const useMenuStyles = makeStyles((theme) => ({
       width: '230px',
     },
   },
+
+  /* 내 모델 열고 닫기 */
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  expandClose: {
+    // transform: 'rotate(-180deg)',
+    color: "rgba(0, 0, 0, 0.54)", 
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+
+  /*  */
   MenuItemLink: {
     /* Typography/Body 1 */
     fontFamily: "Noto Sans",
@@ -56,27 +73,25 @@ const useMenuStyles = makeStyles((theme) => ({
       width: '200px',
     },
   },
+  icon: { marginRight:'16px'},
 }));
 
 
-
-
-
 /**
- * TODO: hierarchical Menu Design
- * 아래에 style 넣으면 정상적으로 작동한다
- * 항목들을 배열에 넣고, map 함수를 통해 간단하게 나타낼 수 있다. => drawer 안에 hierachical을 위해선
- * map보다는 하나씩 넣는게 낫다
- * 
  * withRouter, history.push를 통해서 routing을 구현할 수 있다.
  */
 const CustomMenu = (props) => {
+  const [expanded, setExpanded] = useState(false)
   const classes = useMenuStyles();
   const {history} = props
   const goUploadPage = () => {
     history.push("/upload")
   }
-  const hello=()=>{alert("hello")}
+  const hello=()=>{
+    setExpanded(!expanded)
+  }
+
+
   return (
     <Menu {...props}
       className={classes.menu}
@@ -88,12 +103,20 @@ const CustomMenu = (props) => {
       </div>
       <div style={{display:'flex', alignItems:'center', flexDirection: 'column' }}>
         <Button onClick={goUploadPage} style={{color: reconlabsWhite, marginBottom:'32px'}} className={classes.MenuItemLink} variant="contained" color="primary" label="새 영상 업로드" children={<UploadIcon/>}></Button>
-        <MenuItem onClick={hello} className={classes.MenuItemLink}> <AllInboxIcon style={{color: "rgba(0, 0, 0, 0.54)"}} /> 내 모델 <ExpandLessIcon style={{color: "rgba(0, 0, 0, 0.54)", position:'relative', right:'-140px'}}/></MenuItem>
+        <MenuItem onClick={hello} className={classes.MenuItemLink}>
+          <AllInboxIcon className={classes.icon} style={{color: "rgba(0, 0, 0, 0.54)"}} /> 
+          내 모델 
+          <IconButton className={clsx(classes.expandClose, {[classes.expandOpen] : expanded})} >
+            <ExpandMoreIcon/>
+          </IconButton>
+        </MenuItem>
         <div>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to="/products" primaryText="전체 모델" />
           <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["progress"]' primaryText="진행 중" />
           <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["published"]' primaryText="발행 완료" />
           <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["canceled"]' primaryText="모델 취소" />
+        </Collapse>
         </div>
         <MenuItemLink className={classes.MenuItemLink} to="/posts" primaryText="영상 촬영 팁" leftIcon={<VideoCameraFrontIcon />}/>
         <MenuItemLink className={classes.MenuItemLink} to="/modeling" primaryText="구독 플랜" leftIcon={<MonetizationOnIcon />}/>

@@ -34,7 +34,7 @@ const theme = createTheme({
       // active: '#FF00ff', // 좌측 네비바 이모지 색상
       hover: reconlabsMellowYellow, // 마우스 올렸을 때
       selected: '#FEF8EC', // 선택이 되었을 떄,
-      hoverOpacity: 0.54,
+      // hoverOpacity: 0.1, // 버튼에 마우스 올렸을  때, 불투명하게 진해지는 정도
       focus: "red"
     }
   },

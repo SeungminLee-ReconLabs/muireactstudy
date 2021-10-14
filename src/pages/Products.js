@@ -10,6 +10,7 @@ import {
   Grid,
   useMediaQuery,
   useTheme,
+  CardHeader,
 } from '@material-ui/core';
 // 아이콘
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
