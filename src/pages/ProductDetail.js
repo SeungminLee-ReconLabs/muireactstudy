@@ -80,7 +80,7 @@ export default function ProductDetail(props) {
       <CssBaseline />
       {/* Appbar 하단 제품 메타정보 */}
       <Container  className={classes.root}>
-        <Paper elevation={2} style={{padding: '1px'}} className={classes.paper, "ProductMetaData"}>
+        <Paper elevation={1} style={{padding: '1px'}} className={classes.paper, "ProductMetaData"}>
           <Button
             style={{
               margin:'10px',
@@ -289,7 +289,7 @@ function ProductStep({product}) {
         </Stepper>
       }
       {/* 단계별 컴포넌트 */}
-      <Paper className="productDetail-step-component" elevation={0} >{stepComponent(userStepNum)}</Paper>
+      <Paper className="productDetail-step-component" elevation={1} >{stepComponent(userStepNum)}</Paper>
       {/* Published 컴포넌트 하단 여백 */}
       <div style={{height:'150px'}}></div>
     </Container>
