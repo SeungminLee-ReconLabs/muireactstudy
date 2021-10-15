@@ -47,9 +47,12 @@ const useStyles = makeStyles((theme) => ({
     // marginBottom: "1000px",
     paddingLeft: 5,
     overflow: 'visible',
+    minHeight: '800px', // 콘텐츠 화면의 최소 사이즈
     [theme.breakpoints.down('xs')]: {
-      marginTop: "250px"
+      marginTop: "250px",
+      minHeight: "",
     }
+
   },
 }));
 

@@ -22,7 +22,9 @@ import Pagination from '@mui/material/Pagination';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 import { reconlabsWhite, } from '../cssVariables';
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+/** 더미데이터 */
+import DummyProduts from '../DummyData/DummyProducts';
+
 
 const useProductsStyles = makeStyles((theme)=> ({
   media: {
@@ -36,14 +38,17 @@ export default function Products(props) {
     ref)  https://marmelab.com/react-admin/DataProviders.html#getlist
   */
   const product_state_enum = [
-      "Registration",
-      "Modeling",
-      "Modeling Done",
-      "Post Processing",
-      "Post Done",
-      "Packaging",
-      "Discarded",
-      "Done",
+    "Registration",
+    "Registration Failed",
+    "Modeling",
+    "Modeling Failed",
+    "Modeling Done",
+    "Post Processing",
+    "Post Failed",
+    "Post Done",
+    "Packaging",
+    "Discarded",
+    "Done",
   ];
   
   const oneProduct = {
@@ -67,213 +72,7 @@ export default function Products(props) {
       end_date: "", //timestamp [default: NULL]
   };
 
-  const products = [{
-    "id": 1,
-    "service_id": 1,
-    "category_id": 1,
-    "manager_id": 1,
-    "phone_model": "509-625-1639",
-    "name": "Wine - Sauvignon Blanc Oyster",
-    "state": 1,
-    "thumbnail_s3key": 1,
-    "movie_s3key": 1,
-    "product_glb_s3key": 1,
-    "product_usdz_s3key": 1,
-    "request_id": 1,
-    "upload_date": "4/8/2021",
-    "deadline_date": "12/21/2020",
-    "update_date": "6/10/2021",
-    "end_date": "12/2/2020"
-  }, {
-    "id": 2,
-    "service_id": 2,
-    "category_id": 2,
-    "manager_id": 2,
-    "phone_model": "714-188-3596",
-    "name": "Vinegar - Rice",
-    "state": 2,
-    "thumbnail_s3key": 2,
-    "movie_s3key": 2,
-    "product_glb_s3key": 2,
-    "product_usdz_s3key": 2,
-    "request_id": 2,
-    "upload_date": "10/1/2021",
-    "deadline_date": "6/4/2021",
-    "update_date": "10/29/2020",
-    "end_date": "1/23/2021"
-  }, {
-    "id": 3,
-    "service_id": 3,
-    "category_id": 3,
-    "manager_id": 3,
-    "phone_model": "148-299-4366",
-    "name": "Chestnuts - Whole,canned",
-    "state": 3,
-    "thumbnail_s3key": 3,
-    "movie_s3key": 3,
-    "product_glb_s3key": 3,
-    "product_usdz_s3key": 3,
-    "request_id": 3,
-    "upload_date": "1/5/2021",
-    "deadline_date": "4/13/2021",
-    "update_date": "6/30/2021",
-    "end_date": "8/9/2021"
-  }, {
-    "id": 4,
-    "service_id": 4,
-    "category_id": 4,
-    "manager_id": 4,
-    "phone_model": "455-760-3922",
-    "name": "Cheese - Camembert",
-    "state": 4,
-    "thumbnail_s3key": 4,
-    "movie_s3key": 4,
-    "product_glb_s3key": 4,
-    "product_usdz_s3key": 4,
-    "request_id": 4,
-    "upload_date": "12/8/2020",
-    "deadline_date": "10/23/2020",
-    "update_date": "5/14/2021",
-    "end_date": "10/14/2020"
-  }, {
-    "id": 5,
-    "service_id": 5,
-    "category_id": 5,
-    "manager_id": 5,
-    "phone_model": "633-559-6761",
-    "name": "Pickerel - Fillets",
-    "state": 5,
-    "thumbnail_s3key": 5,
-    "movie_s3key": 5,
-    "product_glb_s3key": 5,
-    "product_usdz_s3key": 5,
-    "request_id": 5,
-    "upload_date": "9/24/2021",
-    "deadline_date": "10/1/2021",
-    "update_date": "8/4/2021",
-    "end_date": "2/21/2021"
-  }, {
-    "id": 6,
-    "service_id": 6,
-    "category_id": 6,
-    "manager_id": 6,
-    "phone_model": "437-544-9000",
-    "name": "Pears - Bartlett",
-    "state": 6,
-    "thumbnail_s3key": 6,
-    "movie_s3key": 6,
-    "product_glb_s3key": 6,
-    "product_usdz_s3key": 6,
-    "request_id": 6,
-    "upload_date": "9/25/2021",
-    "deadline_date": "3/21/2021",
-    "update_date": "7/30/2021",
-    "end_date": "2/11/2021"
-  }, 
-  // {
-  //   "id": 7,
-  //   "service_id": 7,
-  //   "category_id": 7,
-  //   "manager_id": 7,
-  //   "phone_model": "331-468-6077",
-  //   "name": "Flour Dark Rye",
-  //   "state": 7,
-  //   "thumbnail_s3key": 7,
-  //   "movie_s3key": 7,
-  //   "product_glb_s3key": 7,
-  //   "product_usdz_s3key": 7,
-  //   "request_id": 7,
-  //   "upload_date": "1/8/2021",
-  //   "deadline_date": "12/24/2020",
-  //   "update_date": "12/30/2020",
-  //   "end_date": "12/25/2020"
-  // }, {
-  //   "id": 8,
-  //   "service_id": 8,
-  //   "category_id": 8,
-  //   "manager_id": 8,
-  //   "phone_model": "416-138-9215",
-  //   "name": "Yeast Dry - Fermipan",
-  //   "state": 8,
-  //   "thumbnail_s3key": 8,
-  //   "movie_s3key": 8,
-  //   "product_glb_s3key": 8,
-  //   "product_usdz_s3key": 8,
-  //   "request_id": 8,
-  //   "upload_date": "12/27/2020",
-  //   "deadline_date": "7/5/2021",
-  //   "update_date": "10/26/2020",
-  //   "end_date": "8/11/2021"
-  // }, {
-  //   "id": 9,
-  //   "service_id": 9,
-  //   "category_id": 9,
-  //   "manager_id": 9,
-  //   "phone_model": "312-217-4514",
-  //   "name": "Basil - Seedlings Cookstown",
-  //   "state": 9,
-  //   "thumbnail_s3key": 9,
-  //   "movie_s3key": 9,
-  //   "product_glb_s3key": 9,
-  //   "product_usdz_s3key": 9,
-  //   "request_id": 9,
-  //   "upload_date": "5/25/2021",
-  //   "deadline_date": "6/24/2021",
-  //   "update_date": "12/19/2020",
-  //   "end_date": "4/18/2021"
-  // }, {
-  //   "id": 10,
-  //   "service_id": 10,
-  //   "category_id": 10,
-  //   "manager_id": 10,
-  //   "phone_model": "860-264-6414",
-  //   "name": "Sobe - Green Tea",
-  //   "state": 10,
-  //   "thumbnail_s3key": 10,
-  //   "movie_s3key": 10,
-  //   "product_glb_s3key": 10,
-  //   "product_usdz_s3key": 10,
-  //   "request_id": 10,
-  //   "upload_date": "4/25/2021",
-  //   "deadline_date": "3/8/2021",
-  //   "update_date": "12/22/2020",
-  //   "end_date": "12/27/2020"
-  // }, {
-  //   "id": 11,
-  //   "service_id": 11,
-  //   "category_id": 11,
-  //   "manager_id": 11,
-  //   "phone_model": "931-295-0971",
-  //   "name": "Nantucket Orange Juice",
-  //   "state": 11,
-  //   "thumbnail_s3key": 11,
-  //   "movie_s3key": 11,
-  //   "product_glb_s3key": 11,
-  //   "product_usdz_s3key": 11,
-  //   "request_id": 11,
-  //   "upload_date": "6/19/2021",
-  //   "deadline_date": "3/2/2021",
-  //   "update_date": "3/22/2021",
-  //   "end_date": "2/5/2021"
-  // }, {
-  //   "id": 12,
-  //   "service_id": 12,
-  //   "category_id": 12,
-  //   "manager_id": 12,
-  //   "phone_model": "777-630-2087",
-  //   "name": "Dawn Professionl Pot And Pan",
-  //   "state": 12,
-  //   "thumbnail_s3key": 12,
-  //   "movie_s3key": 12,
-  //   "product_glb_s3key": 12,
-  //   "product_usdz_s3key": 12,
-  //   "request_id": 12,
-  //   "upload_date": "10/24/2020",
-  //   "deadline_date": "5/8/2021",
-  //   "update_date": "8/8/2021",
-  //   "end_date": "4/25/2021"
-  // }
-]
+  const products = DummyProduts;
 
   const classes = useProductsStyles();
   console.log(props)
@@ -301,12 +100,12 @@ export default function Products(props) {
           style={{overflow: 'visible', backgroundColor: reconlabsWhite}}
         >
           {/* End hero unit */}
-          <Grid container  spacing={4}>
+          <Grid container  spacing={0}>
+            {/* 총 모델 수, 모델링 가능 횟수, 모델 뷰 */}
             {/sort/.test(props.history.location.search) ? <></> : 
             (<>
               <Grid item key={1} xs={12} md={4} style={{padding:  '16px 12px'}}>
                 <Paper style={{height: '136px'}}>
-                  {/* <Typography variant="h5" color="primary" style={{padding: '16px'}}>총 모델 수</Typography> */}
                   <Typography {...currentPlanStateTitleProps} style={{padding: '16px'}}>총 모델 수</Typography>
                   <Typography {...currentPlanStateDataProps} >{products.length}</Typography>
                 </Paper>
@@ -324,13 +123,15 @@ export default function Products(props) {
                 </Paper>
               </Grid>
             </>)}
+            {/* 카드형식 제품목록 */}
             {products.map((product) => (
               <Grid item key={product} xs={12} sm={6} md={4} style={{padding:  '16px 12px'}}>
                 <Card                >
                   <CardContent>
                     <Typography gutterBottom {...cardTitleProps} style={{margin: '0px', display:'flex', justifyContent:'space-between'}}>
                       {product.name}
-                      <ReportProblemOutlinedIcon style={{color:'red',transform: 'scale(1.6)', position:'relative',top:'10px'}}/>
+                      {/* 실패 아이콘 */}
+                      {["Registration Failed", "Modeling Failed", "Post Failed"].includes(product.state) ? <ReportProblemOutlinedIcon style={{color:'red',transform: 'scale(1.6)', position:'relative',top:'10px'}}/> : <></>}
                     </Typography>
                     <Typography gutterBottom variant="body2" color="text.secondary">
                       {product.state}
@@ -339,17 +140,20 @@ export default function Products(props) {
                   <CardMedia
                     className = {classes.media}
                     component="img"
-                    image="https://source.unsplash.com/random"
-                    // image={product.thumbnail_s3key}
+                    image={product.thumbnail_s3key}
                     alt="random"
                   />
                   <CardActions>
+                    {/* 제품별 상세페이지 이동 */}
                     <Button 
                       size="small" 
                       color="primary"
+                      style={{width: '100px',}}
+                      href={`#/products/${product.id}`}
                       // color="secondary"
                     >
-                      VIEW DETAIL</Button>
+                      VIEW DETAIL
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

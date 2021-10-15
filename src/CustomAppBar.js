@@ -6,7 +6,6 @@ import { Toolbar, makeStyles, Typography, Avatar } from "@material-ui/core";
 import { CssBaseline, useMediaQuery  } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { reconlabsMellowWhite, reconlabsWhite, sideBarWidth, sideBarSmallWidth} from "./cssVariables"
-import PlicARLogo2 from "./svg/PlicARLogo2.svg";
 
 const flexRow = {
   display: 'flex',
@@ -83,7 +82,8 @@ const CustomAppBar = (props) => {
     flexDirection: 'column',
   }
 
-  const PlicARLogo = (isXSScreen ? <img style={{marginTop: '38px', marginBottom: '40px'}} src={PlicARLogo2}></img> : <></>)
+  // 작은 화면에서 보이는 플리카 로고
+  const PlicARLogo = (isXSScreen ? <a href="#products"><img style={{marginTop: '38px', marginBottom: '40px'}} src='/svgs/PlicARLogo.svg'></img></a> : <></>)
 
   return (
     <>

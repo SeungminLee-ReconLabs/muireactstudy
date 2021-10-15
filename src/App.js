@@ -29,7 +29,13 @@ const theme = createTheme({
         color: reconlabsWhite,
       },
       containedSecondary : {
-        color: reconlabsPrimaryYellow,
+        // color: reconlabsPrimaryYellow,
+        color: reconlabsWhite,
+      },
+    },
+    MuiContainer: {
+      maxWidthLg: {
+        // maxWidth:'10000px !important',
       },
     },
   },
@@ -41,11 +47,7 @@ const theme = createTheme({
     },
     secondary: {
       // main: '#edce8c', //appbar default  생상
-      main: '#FFFF00', //appbar default  생상
-    },
-    error: {
-      main: '#FF0000', //appbar default  생상
-      // main: '#edce8c', //appbar default  생상
+      main: "#F73B11"
     },
     action: {
       // 여기는 theme이라서, 모든 것이 다 바뀐다. 

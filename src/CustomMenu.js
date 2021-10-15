@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Button, DashboardMenuItem, Menu, MenuItemLink } from 'react-admin';
 import PageviewIcon from '@material-ui/icons/Pageview';
-import PlicARLogo2 from './svg/PlicARLogo2.svg';
 import { makeStyles } from "@material-ui/core/styles";
 import {withRouter} from "react-router-dom"
 import UploadIcon from '@mui/icons-material/Upload';
@@ -100,7 +99,9 @@ const CustomMenu = (props) => {
     >
       {/* <DashboardMenuItem /> */}
       <div style={{display:'flex', justifyContent:'center', alignItems:'center',height: '175px'}} >
-        <img style={{width: '158px', height:'67px',}} src={PlicARLogo2}></img>
+        <a href='#/products'>
+          <img style={{width: '158px', height:'67px',}} src='/svgs/PlicARLogo.svg'></img>
+        </a>
       </div>
       <div style={{display:'flex', alignItems:'center', flexDirection: 'column' }}>
         <Button onClick={goUploadPage} style={{color: reconlabsWhite, marginBottom:'32px'}} className={classes.MenuItemLink} variant="contained" color="primary" label="새 영상 업로드" children={<UploadIcon/>}></Button>
