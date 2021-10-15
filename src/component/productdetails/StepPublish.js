@@ -16,12 +16,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
     padding: '5px',
     justifyContent:'center',
+    // width: '100%'
   },
   cardImagePaper: {
     display: 'flex',
     justifyContent:'center',
     alignItems:'center',
-    width: "718px",
+    // width: "718px",
+    width: "80%",
+    maxWidth: '100%',
     height: "375px",
   },
   cardImage: {
@@ -29,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
     // height: "375px",
   },
   cardDescription: {
-    width: '354px',
+    // width: '354px',
+    width: '20%',
+    maxWidth: '100%',
     height: '375px',
   },
 }));
@@ -42,7 +47,7 @@ export default function StepPublish() {
   },[])
   return (<>
     <CssBaseline />
-    <Box maxWidth='xl'>
+    <Container maxWidth="lg"  className="StepPublish-container" >
       {/* Web Viewer */}
       <Card className={classes.root} elevation={0}>
         <Paper
@@ -111,7 +116,7 @@ export default function StepPublish() {
           </CardContent>
         </Paper>
       </Card>
-    </Box>
+    </Container>
   </>
   );
 }

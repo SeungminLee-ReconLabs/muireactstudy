@@ -60,6 +60,9 @@ const useProductDetailStyle = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  outlineTextField: {
+    width: '100%',
   }
 }));
 
@@ -77,7 +80,7 @@ export default function ProductDetail(props) {
       <CssBaseline />
       {/* Appbar 하단 제품 메타정보 */}
       <Container  className={classes.root}>
-        <Paper elevation={2} style={{padding: '1px'}} className={classes.paper}>
+        <Paper elevation={2} style={{padding: '1px'}} className={classes.paper, "ProductMetaData"}>
           <Button
             style={{
               margin:'10px',
@@ -105,84 +108,98 @@ export default function ProductDetail(props) {
               required
               id="outlined-required"
               label="Product Name"
-              defaultValue="제품 이름"
+              defaultValue={product.name}
               variant="outlined"
-              style={{
-                width: '49%'
-              }}
+              className={classes.outlineTextField}
             />
           </Container>
-          <Container style={{display:'flex', justifyContent:'space-between', margin: '15px 0'}}>
+          <Container style={{margin: '25px 0'}}>
             {/* Product Meta Data */}
-            <TextField
-              id="standard-read-only-input"
-              label="Product Number"
-              defaultValue="123412341234"
-              InputProps={{
-                readOnly: true,
-              }}
-              style={{
-                width: '23%',
-              }}
-            />
-            <TextField
-              id="standard-read-only-input"
-              label="최종 수정 일시"
-              defaultValue="Hello World"
-              InputProps={{
-                readOnly: true,
-              }}
-              style={{
-                width: '23%',
-              }}
-            />
-            <TextField
-              id="standard-read-only-input"
-              label="영상 업로드 일시"
-              defaultValue="-"
-              InputProps={{
-                readOnly: true,
-              }}
-              style={{
-                width: '23%',
-              }}
-            />
-            <TextField
-              id="standard-read-only-input"
-              label="모델 발행 일시"
-              defaultValue="-"
-              InputProps={{
-                readOnly: true,
-              }}
-              style={{
-                width: '23%',
-              }}
-            />
+            <Grid container>
+              <Grid item key="product-meta-data-1" lg={3} md={6} xs={6}>
+                <TextField
+                  id="standard-read-only-input"
+                  label="Product Number"
+                  defaultValue="--"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  style={{
+                    width: '80%'
+                  }}
+                />
+              </Grid>
+              <Grid item key="product-meta-data-2" lg={3} md={6} xs={6}>
+                <TextField
+                  id="standard-read-only-input"
+                  label="최종 수정 일시"
+                  defaultValue="--"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  style={{
+                    width: '80%'
+                  }}
+                />
+              </Grid>
+              <Grid item key="product-meta-data-3" lg={3} md={6} xs={6}>
+                <TextField
+                  id="standard-read-only-input"
+                  label="영상 업로드 일시"
+                  defaultValue="-"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  style={{
+                    width: '80%'
+                  }}
+                />
+              </Grid>
+              <Grid item key="product-meta-data-4" lg={3} md={6} xs={6}>
+                <TextField
+                  id="standard-read-only-input"
+                  label="모델 발행 일시"
+                  defaultValue="-"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  style={{
+                    width: '80%'
+                  }}
+                />
+              </Grid>
+            </Grid>
           </Container>
-          <Container style={{display:'flex', justifyContent:'space-between', margin: '15px 0'}}>
+          <Container style={{margin: '25px 0'}}>
             {/* Product Description and History */}
-            <TextField
-              multiline
-              required
-              id="outlined-required"
-              label="Product description"
-              defaultValue="제품을 모델링할 때 참고할 사항에 대하여 작성해주세요."
-              variant="outlined"
-              style={{width: '49%', }}
-            />
-            <TextField
-              multiline
-              required
-              id="outlined-required"
-              label="Model history"
-              defaultValue="(2021.09.11) 영상이 업로드 되었습니다."
-              variant="outlined"
-              style={{width: '49%', }}
-            />
+            <Grid container spacing={3}>
+              <Grid item key="product-description" lg={6} sm={12} xs={12}>
+                <TextField
+                  multiline
+                  required
+                  id="outlined-required"
+                  label="Product description"
+                  defaultValue="제품을 모델링할 때 참고할 사항에 대하여 작성해주세요."
+                  variant="outlined"
+                  className={classes.outlineTextField}
+                />
+              </Grid>
+              <Grid item key="model-history" lg={6} sm={12} xs={12}>
+                <TextField
+                  multiline
+                  required
+                  id="outlined-required"
+                  label="Model history"
+                  defaultValue="(2021.09.11) 영상이 업로드 되었습니다."
+                  variant="outlined"
+                  className={classes.outlineTextField}
+                />
+              </Grid>
+            </Grid>
           </Container>
         </Paper>
       </Container>
-      {/*  */}
+      {/* Stepper 와 단계별 컴포넌트 */}
       <ProductStep product={product} />
     </>
   );
@@ -258,7 +275,7 @@ function ProductStep({product}) {
     <Container  className={classes.root}>
       {/* 진행단계를 나타내는 Stepper, Discarded state일 경우 보여주지 않는다 */}
       {product.state === "Discarded" ? <></> :
-        <Stepper activeStep={userStepNum} alternativeLabel>
+        <Stepper activeStep={userStepNum} alternativeLabel className="ProductStepper">
           {userSteps.map((userStep) => (
             <Step key={userStep}>
               <StepLabel>
@@ -272,7 +289,7 @@ function ProductStep({product}) {
         </Stepper>
       }
       {/* 단계별 컴포넌트 */}
-      <Box >{stepComponent(userStepNum)}</Box>
+      <Paper className="productDetail-step-component" elevation={0} >{stepComponent(userStepNum)}</Paper>
       {/* Published 컴포넌트 하단 여백 */}
       <div style={{height:'150px'}}></div>
     </Container>

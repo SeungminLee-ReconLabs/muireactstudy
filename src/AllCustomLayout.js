@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: "250px",
       minHeight: "",
+      width: "100%", // xs 화면으로 넘어오면, 창 크기에 맞춘다
     }
 
   },

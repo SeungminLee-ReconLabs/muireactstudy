@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 /* Material-ui version 4 */
 import {
   AppBar,
@@ -65,11 +65,12 @@ const useVideoStepStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   videoImg: {
+    maxWidth: "90%",
     width: "716px",
     height: "343px",
     backgroundColor: "black",
   },
-  gridCenter: {
+  noticeGrid: {
     display: "flex",
     justifyContent: "center",
   },
@@ -82,12 +83,15 @@ const useVideoStepStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth: "100%",
   },
 
   videoMetaDataGrid: {
     marginTop: "10px",
+    maxWidth: "90%",
     width: "716px",
     display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
   },
 }));
@@ -97,12 +101,11 @@ const useVideoStepStyles = makeStyles((theme) => ({
  * @param {Number} product - 개별 제품정보
  * @returns
  */
-export default function StepVideoAndModeling({product}) {
-  console.log("🧡🧡🧡🧡🧡🧡🧡🧡🧡🧡🧡", product)
+export default function StepVideoAndModeling({ product }) {
   // 스크롤 최상단 이동
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[])
+  }, []);
   let classes = useVideoStepStyles();
   let PLMstepName;
   switch (product.state) {
@@ -198,92 +201,112 @@ export default function StepVideoAndModeling({product}) {
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item key={1} sm={12} md={8} xl={6} className={classes.videoGrid}>
-          <img className={classes.videoImg}></img>
-          {/* 영상검수/거절 영상메타정보 */}
-          {PLMstepName === "videoSubmitted" ||
-          PLMstepName === "videoRejected" ? (
-            <Grid container className={classes.videoMetaDataGrid}>
-              <Grid item key={1} md={4} xs={12}>
-                <TextField
-                  defaultValue="hehe"
-                  label="용량"
-                  InputProps={{ readOnly: true }}
-                ></TextField>{" "}
-              </Grid>
-              <Grid item key={2} md={4} xs={12}>
-                <TextField
-                  defaultValue="hehe"
-                  label="영상 제목"
-                  InputProps={{ readOnly: true }}
-                ></TextField>{" "}
-              </Grid>
-              <Grid item key={3} md={4} xs={12}>
-                <TextField
-                  defaultValue="hehe"
-                  label="영상 길이"
-                  InputProps={{ readOnly: true }}
-                ></TextField>{" "}
-              </Grid>
-            </Grid>
-          ) : (
-            <></>
-          )}
-
-          {/* 영상검수 전 취소버튼 */}
-          {PLMstepName === "videoSubmitted" ? (
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.modelingCancelButton}
-            >
-              모델링 취소 하기
-            </Button>
-          ) : (
-            <></>
-          )}
-        </Grid>
-        <Grid item key={2} sm={12} md={4} xl={6} className={classes.gridCenter}>
-          <Paper
-            textAlign="center"
-            className={clsx(classes.notice, {
-              [classes.noticeFail]:
-                PLMstepName == "videoRejected" ||
-                PLMstepName == "modelingFailed",
-            })}
+      <Container className="StepVideoAndModeling">
+        <Grid container spacing={2} style={{ justifyContent: "center" }}>
+          <Grid
+            item
+            key={1}
+            md={8}
+            sm={12}
+            className={classes.videoGrid}
           >
-            <Typography className={classes.noticeTitle}>
-              {" "}
-              <ErrorOutlineIcon style={{ marginRight: "20px" }} />
-              {/* 영상 검수 중입니다. */}
-              {noticeTitleMsg[PLMstepName]}
-            </Typography>
-            <Typography style={{ color: "#FFFFFF" }} variant="body2">
-              {/* 업로드 하신 영상을 확인하고 있습니다. <br />
-                  확인 후 자동으로 모델링이 진행됩니다. <br />
-                  문제가 있을 시 연락드리겠습니다. <br /> */}
-              {noticeBody[PLMstepName][0]} <br />
-              {noticeBody[PLMstepName][1]} <br />
-              {noticeBody[PLMstepName][2]} <br />
-              {noticeBody[PLMstepName][3] ? noticeBody[PLMstepName][3] : <></> }  {noticeBody[PLMstepName][3] ? <br /> : <></> }  
-              <br />
-              <Link
-                style={{
-                  marginTOP: "20px",
-                  cursor: "pointer",
-                  color: "#FFFFFF",
-                  textDecoration: "underline",
-                }}
-                variant="body2"
+            <img className={classes.videoImg}></img>
+            {/* 영상검수/거절 영상메타정보 */}
+            {PLMstepName === "videoSubmitted" ||
+            PLMstepName === "videoRejected" ? (
+              // 영상 정보
+              <Grid container className={classes.videoMetaDataGrid}>
+                <Grid item key={1} md={4} xs={12}>
+                  <TextField
+                    defaultValue="---"
+                    label="용량"
+                    InputProps={{ readOnly: true }}
+                  ></TextField>{" "}
+                </Grid>
+                <Grid item key={2} md={4} xs={12}>
+                  <TextField
+                    defaultValue="---"
+                    label="영상 제목"
+                    InputProps={{ readOnly: true }}
+                  ></TextField>{" "}
+                </Grid>
+                <Grid item key={3} md={4} xs={12}>
+                  <TextField
+                    defaultValue="---"
+                    label="영상 길이"
+                    InputProps={{ readOnly: true }}
+                  ></TextField>{" "}
+                </Grid>
+              </Grid>
+            ) : (
+              <></>
+            )}
+
+            {/* 영상검수 전 취소버튼 */}
+            {PLMstepName === "videoSubmitted" ? (
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.modelingCancelButton}
               >
-                {/* 연락처 업데이트 하러 가기 */}
-                {noticeLinkAndMsg[PLMstepName].msg}
-              </Link>
-            </Typography>
-          </Paper>
+                모델링 취소 하기
+              </Button>
+            ) : (
+              <></>
+            )}
+          </Grid>
+          <Grid
+            item
+            key={2}
+            md={4}
+            sm={12}
+            className={classes.noticeGrid}
+          >
+            <Paper
+              textAlign="center"
+              className={clsx(classes.notice, {
+                [classes.noticeFail]:
+                  PLMstepName == "videoRejected" ||
+                  PLMstepName == "modelingFailed",
+              })}
+            >
+              <Typography className={classes.noticeTitle}>
+                {" "}
+                <ErrorOutlineIcon style={{ marginRight: "20px" }} />
+                {/* 영상 검수 중입니다. */}
+                {noticeTitleMsg[PLMstepName]}
+              </Typography>
+              <Typography style={{ color: "#FFFFFF" }} variant="body2">
+                {/* 업로드 하신 영상을 확인하고 있습니다. <br />
+                    확인 후 자동으로 모델링이 진행됩니다. <br />
+                    문제가 있을 시 연락드리겠습니다. <br /> */}
+                {noticeBody[PLMstepName][0]} <br />
+                {noticeBody[PLMstepName][1]} <br />
+                {noticeBody[PLMstepName][2]} <br />
+                {noticeBody[PLMstepName][3] ? (
+                  noticeBody[PLMstepName][3]
+                ) : (
+                  <></>
+                )}{" "}
+                {noticeBody[PLMstepName][3] ? <br /> : <></>}
+                <br />
+                <Link
+                  style={{
+                    marginTOP: "20px",
+                    cursor: "pointer",
+                    color: "#FFFFFF",
+                    textDecoration: "underline",
+                  }}
+                  variant="body2"
+                >
+                  {/* 연락처 업데이트 하러 가기 */}
+                  {noticeLinkAndMsg[PLMstepName].msg}
+                </Link>
+              </Typography>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </>
   );
 }
