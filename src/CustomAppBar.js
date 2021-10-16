@@ -83,7 +83,7 @@ const CustomAppBar = (props) => {
   }
 
   // 작은 화면에서 보이는 플리카 로고
-  const PlicARLogo = (isXSScreen ? <a href="#products"><img style={{marginTop: '38px', marginBottom: '40px'}} src='/svgs/PlicARLogo.svg'></img></a> : <></>)
+  const PlicARLogo = (isXSScreen ? <a href="#products"><img style={{marginTop: '38px', marginBottom: '40px'}} src='/images/PlicARLogo.svg'></img></a> : <></>)
 
   return (
     <>

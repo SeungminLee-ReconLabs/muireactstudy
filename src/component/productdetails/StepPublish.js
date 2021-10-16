@@ -53,7 +53,7 @@ export default function StepPublish() {
         <Paper
           className={classes.cardImagePaper}
         >
-          <img src="/svgs/PlicARLogo.svg" 
+          <img src="/images/PlicARLogo.svg" 
             className={classes.cardImage} 
           />
         </Paper>
@@ -76,7 +76,7 @@ export default function StepPublish() {
         <Paper
           className={classes.cardImagePaper}
         >
-          <img src="/svgs/PlicARLogo.svg" 
+          <img src="/images/PlicARLogo.svg" 
             className={classes.cardImage} 
           />
         </Paper>
@@ -99,7 +99,7 @@ export default function StepPublish() {
           className={classes.cardImagePaper}
         >
           <img 
-            src="/svgs/ARProductWatchButton.png"
+            src="/images/ARProductWatchButton.png"
             style={{transform:'scale(0.5)'}}
           />
         </Paper>

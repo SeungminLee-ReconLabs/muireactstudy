@@ -100,7 +100,7 @@ const CustomMenu = (props) => {
       {/* <DashboardMenuItem /> */}
       <div style={{display:'flex', justifyContent:'center', alignItems:'center',height: '175px'}} >
         <a href='#/products'>
-          <img style={{width: '158px', height:'67px',}} src='/svgs/PlicARLogo.svg'></img>
+          <img style={{width: '158px', height:'67px',}} src='/images/PlicARLogo.svg'></img>
         </a>
       </div>
       <div style={{display:'flex', alignItems:'center', flexDirection: 'column' }}>
@@ -120,9 +120,9 @@ const CustomMenu = (props) => {
           <MenuItemLink style={{paddingLeft:'40px'}} className={classes.MenuItemLink} to='/products?sort=["canceled"]' primaryText="모델 취소" />
         </Collapse>
         </div>
-        <MenuItemLink className={classes.MenuItemLink} to="/posts" primaryText="영상 촬영 팁" leftIcon={<VideoCameraFrontIcon />}/>
-        <MenuItemLink className={classes.MenuItemLink} to="/modeling" primaryText="구독 플랜" leftIcon={<MonetizationOnIcon />}/>
-        <MenuItemLink className={classes.MenuItemLink} to="/postprocessing" primaryText="문의하기" leftIcon={<InfoIcon />}/>
+        <MenuItemLink className={classes.MenuItemLink} to="/guide" primaryText="영상 촬영 팁" leftIcon={<VideoCameraFrontIcon />}/>
+        <MenuItemLink className={classes.MenuItemLink} to="/plan" primaryText="구독 플랜" leftIcon={<MonetizationOnIcon />}/>
+        <MenuItemLink className={classes.MenuItemLink} to="/about" primaryText="문의하기" leftIcon={<InfoIcon />}/>
       </div>
       <Container>
         <div style={{position: 'absolute', bottom: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: '10px'}}>

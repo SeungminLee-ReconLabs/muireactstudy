@@ -187,10 +187,13 @@ export default function ProductDetail(props) {
               <Grid item key="model-history" lg={6} sm={12} xs={12}>
                 <TextField
                   multiline
-                  required
+                  // required
                   id="outlined-required"
                   label="Model history"
                   defaultValue="(2021.09.11) 영상이 업로드 되었습니다."
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   className={classes.outlineTextField}
                 />
