@@ -69,6 +69,11 @@ export default function Products(props) {
     style: {paddingTop:  '50px',}
   }
 
+  const viewDetail = (event) => {
+    let productId = event.currentTarget.getAttribute('data-productId')
+    props.history.push(`products/${productId}`)
+  }
+
   return (
     <>
       <CssBaseline />
@@ -107,9 +112,9 @@ export default function Products(props) {
             {products.map((product) => (
               <Grid item key={product} xs={12} sm={6} md={4} className={classes.gridItem}>
                 <Card>
-                  <CardActionArea>
+                  <CardActionArea onClick={viewDetail} data-productId={product.id}>
                     <CardContent style={{position: 'relative'}}>
-                      <Typography noWrap className="product-card-title" {...cardTitleProps} style={{ margin: '0px', justifyContent:'space-between'}}>
+                      <Typography noWrap className="product-card-title" {...cardTitleProps} style={{ margin: '0px', justifyContent:'space-between', fontFamily: "Noto Sans"}}>
                         {product.name}
                         {/* 실패 아이콘 */}
                       </Typography>

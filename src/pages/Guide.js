@@ -110,6 +110,7 @@ export default function VideoGuide() {
           <Button href="#/upload" variant="contained" color="primary" style={{width: '200px', margin: "60px 0px 0px 0px"}}> <UploadIcon/>  새 영상 업로드</Button>
         </Container>
       </Paper>
+      <div style={{height:'150px'}}></div>
     </Container>
   )
 }

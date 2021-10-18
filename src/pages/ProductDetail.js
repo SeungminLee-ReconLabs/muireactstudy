@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useEffect} from "react";
 /* Material-ui version 4 */
 import {
   AppBar,
@@ -67,6 +67,9 @@ const useProductDetailStyle = makeStyles((theme) => ({
 }));
 
 export default function ProductDetail(props) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
   const classes = useProductDetailStyle();
   // 더미 데이터 코드
   let productID = props.match.params.productID;

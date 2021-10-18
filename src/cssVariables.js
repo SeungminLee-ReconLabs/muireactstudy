@@ -4,6 +4,7 @@ const reconlabsWhite = "#FFFFFF"
 const reconlabsMellowWhite = "#FAFAFA"
 const reconlabsMellowYellow = "#FEF8EC"
 const reconlabsPrimaryYellow = "#F7AD11"
+const reconlabsSecondaryYellow = "#FDEAB3"
 
 export { 
   sideBarWidth,
@@ -12,4 +13,5 @@ export {
   reconlabsMellowYellow,
   reconlabsPrimaryYellow,
   sideBarSmallWidth,
+  reconlabsSecondaryYellow,
 };

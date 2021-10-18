@@ -103,9 +103,7 @@ const useVideoStepStyles = makeStyles((theme) => ({
  */
 export default function StepVideoAndModeling({ product }) {
   // 스크롤 최상단 이동
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   let classes = useVideoStepStyles();
   let PLMstepName;
   switch (product.state) {

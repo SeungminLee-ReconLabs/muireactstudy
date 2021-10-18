@@ -1,7 +1,7 @@
 // in src/customRoutes.js
 import * as React from "react";
 import { Route } from "react-router-dom";
-import { LogIn, Register, Products, ProductDetail, Guide, SubscriptionPlan } from "./pages";
+import { LogIn, Register, Products, ProductDetail, Guide, SubscriptionPlan, Upload } from "./pages";
 import { RouteWithoutLayout } from "ra-core";
 
 export default [
@@ -11,4 +11,5 @@ export default [
     <Route exact path={["/products/:productID"]} component={ProductDetail}></Route>,
     <Route exact path={["/guide"]} component={Guide}></Route>,
     <Route exact path={["/plan"]} component={SubscriptionPlan}></Route>,
+    <Route exact path={["/upload"]} component={Upload}></Route>,
 ];

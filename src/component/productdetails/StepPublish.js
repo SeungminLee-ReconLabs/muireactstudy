@@ -41,10 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StepPublish() {
   const classes = useStyles();
-  // 스크롤 최상단 이동
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  },[])
   return (<>
     <CssBaseline />
     <Container maxWidth="lg"  className="StepPublish-container" >
