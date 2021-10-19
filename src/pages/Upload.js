@@ -7,13 +7,16 @@ import {
   makeStyles,
   Divider
 } from "@material-ui/core";
-import { CountertopsOutlined } from "@mui/icons-material";
+import { AllInbox, CountertopsOutlined } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { reconlabsMellowYellow, reconlabsPrimaryYellow } from "../cssVariables";
 import { readFile } from "../lib/utils";
 
 /* 썸네일 라이브러리 */
 import { getMetadata, getThumbnails } from 'video-metadata-thumbnails';
+
+/* AWS로 업로드하기 위한 Axios */
+import axios from "axios"
 
 /**
 주요 로직
@@ -161,91 +164,137 @@ function FileBrowse(props) {
       if (sameFileName) alert("같은 파일을 중복해서 올릴 수 없습니다.");
       // setFileList([...fileList, validFiles])
       setFileList([...fileList, ...validFiles])
-      console.log("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤",[...fileList, ...validFiles])
     }
     return
   }
 
   const unbrowseFile = (event) => {
-    console.log(event)
-    console.log(event.currentTarget)
-    console.log("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤")
     let unbrowseFilename = event.currentTarget.getAttribute('data-filename')
-    console.log(unbrowseFilename)
-    console.log(fileList)
-    console.log(fileList[0])
-    console.log(Array.isArray(fileList))
     let newFileList = fileList.filter(file => file.name !== unbrowseFilename)
     console.log(newFileList)
     setFileList(newFileList)
   }
   
-/** 업로드할 파일 추출 로직 */
-  // const putVideo = async (file) => {
-  //   let fileData  = await readFile(file);
-  //   try {
-  //     /** fetch 대신 axios를 사용해도 progress bar와 업로드 취소  기능을 넣는다 */
-  //     let response = await fetch('동영상을 업로드할 경로',  {method: "PUT", body: filedata})
-  //     if (response.status >= 400 && response.status < 600) {
-  //       throw new Error("Bad response from AWS Cloud Front");
-  //     }
-  //     return response
-  //   } catch (error) {
-  //     console.error("File Upload Error: ", error.message);
-  //     alert("Failed to upload file. Please retry.")
-  //     return
-  //   }
-  // }
-
-/**
-// Tracking file upload progress using axios
-upload(files) {
-  const config = {
-    onUploadProgress: function(progressEvent) {
-      var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-      console.log(percentCompleted)
-    }
-  }
-
-  let data = new FormData()
-  data.append('file', files[0])
-
-  axios.put('/endpoint/url', data, config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
-
- */
-
-
-  // /**
-  //  * 썸네일 파일 비디오에서 추출 및 CloudFront 를 통해 업로드
-  //  * @param {File} Javascript File API 
-  //  * @returns {Promise<Blob>} 썸네일 이미지 Blob이 담긴 Promise
-  //  */
-  // const extractThumbnailFromVideeFile = async (file) => {
-  //   const metadata = await getMetadata(file);
-  //   const thumbnails = await getThumbnails(file, {
-  //     quality: 0.6
-  //   });
-  //   console.log('Thumbnails: ', thumbnails);
-  //   let thumbnailBlob = thumbnails[0].blob
-  //   console.log(thumbnailBlob)
-  //   // blob to arraybuffer
-  //   let thumbnailArrayBuffer = await thumbnailBlob.arrayBuffer()
-  //   /* 
-  //   TODO 썸네일 업로드해야합니다
-  //   */
-  //  return thumbnailBlob
-  // }
-
-
 
   /* ******************************************** 업로드 로직 ********************************************* */
-  /* 1. 메타데이터 업로드 (파일이름, 작성시간, 고객이메일 등) */
   
+  
+  /* 업로드 가능한지 validation */
+  const validateUploadStart = () => {
+    if(fileList.length === 0) {
+      alert('업로드 할 파일을 선택해주세요.')
+      return false
+    }
+    return true
+  }
+  
+  /* 메타데이터 업로드 (파일이름, 작성시간, 고객이메일 등) */
+  const uploadModelMetaData = async (modelMetaData) => {
+    let response = await axios.post("endpooint to upload  model's meta data", modelMetaData)
+    if (response.status >= 400 && response.status < 600) {
+      throw new Error("Bad response from server");
+    }
+    return response
+  }
 
-  /* 2. 썸네일 업로드 */
+  /* 썸네일 추출 */
+  /**
+   * 썸네일 파일 비디오에서 추출 및 CloudFront 를 통해 업로드
+   * @param {File} Javascript File API 
+   * @returns {Promise<Blob>} 썸네일 이미지 Blob이 담긴 Promise
+   */
+    const extractThumbnailFromVideeFile = async (file) => {
+    const metadata = await getMetadata(file);
+    const thumbnails = await getThumbnails(file, {
+      quality: 0.6
+    });
+    console.log('Thumbnails: ', thumbnails);
+    let thumbnailBlob = thumbnails[0].blob
+    console.log(thumbnailBlob)
+    // blob to arraybuffer
+    let thumbnailArrayBuffer = await thumbnailBlob.arrayBuffer()
+    return thumbnailBlob
+  }
+
+  /* 썸네일 업로드 */
+  const putThumbnail = async (thumbnail) => {
+    let fileData  = thumbnail
+    // 업로드 진행상황을 알기 위한 config
+    const config = {
+      onUploadProgress: function(progressEvent) {
+        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log(percentCompleted)
+      }
+    }
+    // TODO 프론트에서 썸네일 업로드 할 endpoint
+    let response = await axios.put('썸네일 업로드할 경로',  fileData, config)
+    if (response.status >= 400 && response.status < 600) {
+      throw new Error("Bad response from AWS Cloud Front");
+    }
+    console.log(response)
+    return response
+  }
+
+  /* 동영상 업로드 */
+  /* 업로드할 파일 추출 로직 */
+  const putVideo = async (file) => {
+    let fileData  = await readFile(file);
+    // 업로드 진행상황을 알기 위한 config
+    const config = {
+      onUploadProgress: function(progressEvent) {
+        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log(percentCompleted)
+      }
+    }
+    // TODO 프론트에서 동영상 업로드 할 endpoint
+    let response = await axios.put('동영상을 업로드할 경로',  fileData, config)
+    if (response.status >= 400 && response.status < 600) {
+      throw new Error("Bad response from AWS Cloud Front");
+    }
+    console.log(response)
+    return response
+  }
+
+
+  /* 순서대로 실행하는 코드, */
+  const uploadStart = async () => {
+    if (validateUploadStart() === false) {
+      return
+    }
+    fileList.map( async (file) => {
+      let modelMetaData = {
+        // TODO 도와주세요! : 동영상 업로드 시 DB에 저장하기위해 frontend에서 보내야하는 데이터가  무엇이있을까요?
+        /*
+        client_id  = clientID,
+        name = file.name
+        */
+      }
+
+      
+      // 썸네일 추출 
+      let thumbnail = extractThumbnailFromVideeFile(file)
+      // 썸네일 업로드
+      try {
+        let response = await putThumbnail(thumbnail)
+        modelMetaData["thumbnail_s3key"] = response.s3key
+      } catch (error) {
+        console.log(error)
+      }
+      // 메타데이터 업로드
+      try {
+        uploadModelMetaData(file)
+      } catch (error) {
+        console.log(error)
+      }
+  
+      // 동영상 업로드
+      try {
+        putVideo(file)
+      } catch (error) {
+        console.log(error)
+      }
+    })
+  }
 
   return (
     <Container>
@@ -339,7 +388,13 @@ upload(files) {
           }
           {/* 업로드 버튼 */}
           {/* disabled Toggle */}
-          <Button variant='contained' color='primary'  className={classes.UploadButton}> 
+          <Button 
+            variant='contained' 
+            color='primary'  
+            className={classes.UploadButton}
+            disabled
+            onClick={uploadStart}
+          > 
             업로드 {uploadCapacity || 'N'} 회 남았습니다
           </Button>
         </Grid>
