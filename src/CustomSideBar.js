@@ -38,10 +38,5 @@ const CustomSideBar = (props) => {
   </div>
   ;
 };
-/**
- * 화면크기 작아질때 지멋대로 생기는 못된 애니메이션 제거하기
- * 화면크기 작아지면, 지멋대로 레이아웃 바뀌는데, 그거에 맞춰서 drawer 버튼 좌측 위에 생기도록.
- * 비로소 못된 애니메이션 들어가도 ㄱㅊ
- */
 
 export default CustomSideBar;

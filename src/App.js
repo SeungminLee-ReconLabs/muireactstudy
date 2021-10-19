@@ -14,9 +14,7 @@ import { reconlabsPrimaryYellow, reconlabsMellowYellow, reconlabsWhite } from '.
 /**
  * 최상단에 위치한 App.js에서 MUI(material ui)의 커스텀테마를 생성합니다
  * 리콘랩스만의 색깔(노랑)을 입힌 버튼, 인풋박스 등을 만들기 위함입니다
- * ripple은 아직 어떻게 하는지 모르겠습니다.
  */
-
 
 const theme = createTheme({
   overrides: {
@@ -90,9 +88,5 @@ function App() {
     </>
   );
 };
-
-//setup passport for auth
-// dev https://plm-dev.aseeo.io:3003/plm#
-// production https://plm.aseeo.io:3003/plm
 
 export default App;
